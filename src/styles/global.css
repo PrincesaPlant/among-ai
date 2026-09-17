@@ -1,0 +1,844 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #141414;
+  --bg-darker: #0a0a0a;
+  --card-bg: #2d2d2d;
+  --card-border: #454545;
+
+  --color-red: #ff4757;
+  --color-cyan: #17d8d8;
+  --color-yellow: #ffd93d;
+  --color-green: #2ed573;
+  --color-purple: #a55eea;
+  --color-orange: #ff9f43;
+
+  --text-main: #f1f1f1;
+  --text-muted: #b8b8b8;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-dark);
+  background-image: radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 71, 87, 0.06) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(23, 216, 216, 0.06) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(165, 94, 234, 0.06) 0%,
+      transparent 30%
+    ),
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 60px 70px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 90px 10px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(
+      1px 1px at 130px 90px,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 160px 40px,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    );
+  background-size: 100% 100%, 100% 100%, 100% 100%, 200px 200px, 200px 200px,
+    200px 200px, 200px 200px, 200px 200px;
+  color: var(--text-main);
+  min-height: 100vh;
+  font-size: 17px;
+  overflow-x: hidden;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: screen-fade-in 0.5s ease;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes screen-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- INTRO / PHASE / RESULT BOX ---------- */
+.intro-box,
+.phase-intro-box,
+.result-box {
+  background: var(--card-bg);
+  border: 3px solid var(--card-border);
+  border-radius: 24px;
+  padding: 44px;
+  max-width: 580px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.game-title {
+  font-size: 3rem;
+  letter-spacing: 3px;
+  font-weight: 900;
+  background: linear-gradient(
+    90deg,
+    var(--color-red),
+    var(--color-yellow),
+    var(--color-cyan),
+    var(--color-purple)
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: title-gradient 4s linear infinite;
+}
+
+@keyframes title-gradient {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 300% center;
+  }
+}
+
+.game-subtitle {
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.flavor-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 20px 0;
+}
+
+.intro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.intro-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  gap: 6px;
+  font-weight: 600;
+}
+
+.intro-form input {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--card-border);
+  background: var(--bg-darker);
+  color: #fff;
+  font-size: 1.05rem;
+  transition: border-color 0.2s ease;
+}
+
+.intro-form input:focus {
+  outline: none;
+  border-color: var(--color-cyan);
+}
+
+.error-text {
+  color: var(--color-red);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.btn-primary {
+  margin-top: 12px;
+  padding: 16px 24px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, var(--color-red), var(--color-purple));
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(255, 71, 87, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ---------- PHASE INTRO ---------- */
+.phase-icon {
+  font-size: 3.6rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: bounce-icon 1.8s ease-in-out infinite;
+}
+
+@keyframes bounce-icon {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.phase-tag {
+  display: inline-block;
+  background: rgba(23, 216, 216, 0.15);
+  color: var(--color-cyan);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(23, 216, 216, 0.4);
+}
+
+.phase-intro-box h2 {
+  font-size: 1.9rem;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.phase-intro-box h3 {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+/* ---------- GAME / QUESTION ---------- */
+.game-screen {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.progress-wrapper {
+  width: 100%;
+}
+
+.progress-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 14px;
+  background: var(--bg-darker);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid var(--card-border);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-red),
+    var(--color-yellow),
+    var(--color-cyan)
+  );
+  background-size: 200% auto;
+  animation: title-gradient 3s linear infinite;
+  transition: width 0.5s ease;
+  border-radius: 20px;
+}
+
+.question-card {
+  background: var(--card-bg);
+  border: 3px solid var(--card-border);
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.7);
+}
+
+.question-meta {
+  font-size: 0.9rem;
+  color: var(--color-yellow);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.question-text {
+  font-size: 1.35rem;
+  margin-bottom: 26px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.option-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  text-align: left;
+  padding: 18px;
+  border-radius: 14px;
+  border: 2px solid var(--card-border);
+  background: var(--bg-darker);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+  width: 100%;
+  font-family: inherit;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: var(--color-cyan);
+  background: rgba(23, 216, 216, 0.08);
+  transform: translateX(6px) scale(1.01);
+}
+
+.option-btn.selected {
+  border-color: var(--color-green);
+  background: rgba(46, 213, 115, 0.15);
+  transform: scale(0.98);
+}
+
+.option-btn:disabled {
+  cursor: default;
+}
+
+.option-key {
+  font-weight: 900;
+  color: var(--color-cyan);
+  min-width: 24px;
+  font-size: 1.1rem;
+}
+
+/* ---------- LOADING ---------- */
+.loading-box {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.spinner {
+  font-size: 4rem;
+  animation: spin 1.4s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-box p {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ---------- RESULT ---------- */
+.result-emoji {
+  font-size: 4rem;
+  margin-bottom: 12px;
+}
+
+.result-title {
+  font-size: 1.9rem;
+  color: var(--color-yellow);
+  margin: 12px 0;
+  font-weight: 900;
+}
+
+.result-role {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.result-tagline {
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  font-size: 1.05rem;
+}
+
+.result-description {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--text-main);
+  margin-bottom: 22px;
+}
+
+.debrief-box {
+  background: rgba(23, 216, 216, 0.1);
+  border: 2px dashed rgba(23, 216, 216, 0.4);
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 0.95rem;
+  margin-bottom: 22px;
+}
+
+.thanks-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   CREWMATE
+   ========================================================= */
+.crewmate {
+  --size: var(--crewmate-size, 80px);
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  display: inline-block;
+}
+
+.crewmate-body {
+  position: relative;
+  width: 100%;
+  height: 78%;
+  border-radius: 45% 45% 40% 40% / 50% 50% 35% 35%;
+  z-index: 2;
+}
+
+.crewmate-visor {
+  position: absolute;
+  top: 22%;
+  left: 48%;
+  width: 55%;
+  height: 32%;
+  background: linear-gradient(135deg, #cdeeff, #8fd3f4);
+  border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+  border: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.crewmate-backpack {
+  position: absolute;
+  top: 18%;
+  left: -12%;
+  width: 30%;
+  height: 45%;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.crewmate-legs {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 26%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.crewmate-leg {
+  width: 38%;
+  height: 100%;
+  border-radius: 0 0 8px 8px;
+}
+
+.crewmate-red .crewmate-body,
+.crewmate-red .crewmate-backpack,
+.crewmate-red .crewmate-leg {
+  background: var(--color-red);
+}
+
+.crewmate-cyan .crewmate-body,
+.crewmate-cyan .crewmate-backpack,
+.crewmate-cyan .crewmate-leg {
+  background: var(--color-cyan);
+}
+
+.crewmate-yellow .crewmate-body,
+.crewmate-yellow .crewmate-backpack,
+.crewmate-yellow .crewmate-leg {
+  background: var(--color-yellow);
+}
+
+.crewmate-green .crewmate-body,
+.crewmate-green .crewmate-backpack,
+.crewmate-green .crewmate-leg {
+  background: var(--color-green);
+}
+
+.crewmate-purple .crewmate-body,
+.crewmate-purple .crewmate-backpack,
+.crewmate-purple .crewmate-leg {
+  background: var(--color-purple);
+}
+
+.crewmate-orange .crewmate-body,
+.crewmate-orange .crewmate-backpack,
+.crewmate-orange .crewmate-leg {
+  background: var(--color-orange);
+}
+
+.crewmate-animated.crewmate-idle {
+  animation: crewmate-float 2.4s ease-in-out infinite;
+}
+
+@keyframes crewmate-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.crewmate-animated.crewmate-walk {
+  animation: crewmate-walk 0.6s steps(2) infinite;
+}
+
+@keyframes crewmate-walk {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.crewmate-animated.crewmate-celebrate {
+  animation: crewmate-celebrate 0.9s ease-in-out infinite;
+}
+
+@keyframes crewmate-celebrate {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-14px) rotate(-8deg) scale(1.05);
+  }
+  75% {
+    transform: translateY(-14px) rotate(8deg) scale(1.05);
+  }
+}
+
+/* =========================================================
+   WALKING CREWMATES (decorativos, andando pela tela)
+   ========================================================= */
+.walking-crewmate {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  opacity: 0.55;
+  pointer-events: none;
+  animation-name: walk-across;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.walking-crewmate-1 {
+  bottom: 6%;
+  animation-duration: 22s;
+  animation-delay: 0s;
+}
+
+.walking-crewmate-2 {
+  bottom: 14%;
+  animation-duration: 28s;
+  animation-delay: -8s;
+}
+
+.walking-crewmate-3 {
+  bottom: 3%;
+  animation-duration: 25s;
+  animation-delay: -16s;
+}
+
+@keyframes walk-across {
+  0% {
+    left: -80px;
+    transform: scaleX(1);
+  }
+  49% {
+    transform: scaleX(1);
+  }
+  50% {
+    left: calc(100% + 80px);
+    transform: scaleX(-1);
+  }
+  99% {
+    transform: scaleX(-1);
+  }
+  100% {
+    left: -80px;
+    transform: scaleX(1);
+  }
+}
+
+/* =========================================================
+   SPACE SCENE (nave avança com o progresso + meteoros)
+   ========================================================= */
+.space-scene {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 110px;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .space-scene {
+    width: 60px;
+    opacity: 0.6;
+  }
+}
+
+.space-track-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.08) 0px,
+    rgba(255, 255, 255, 0.08) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  transform: translateX(-50%);
+}
+
+.spaceship-track {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 0.6s ease-out;
+  animation: ship-sway 3s ease-in-out infinite;
+}
+
+@keyframes ship-sway {
+  0%,
+  100% {
+    margin-left: -12px;
+    rotate: -5deg;
+  }
+  50% {
+    margin-left: 12px;
+    rotate: 5deg;
+  }
+}
+
+.spaceship {
+  --size: var(--ship-size, 50px);
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+}
+
+.spaceship-body {
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  width: 50%;
+  height: 70%;
+  background: linear-gradient(180deg, #e8e8e8, #a8a8a8);
+  border-radius: 50% 50% 30% 30% / 60% 60% 30% 30%;
+  z-index: 3;
+  border: 2px solid #6b6b6b;
+}
+
+.spaceship-window {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 50%;
+  height: 35%;
+  background: linear-gradient(135deg, #17d8d8, #0a7f7f);
+  border-radius: 50%;
+  border: 2px solid #075858;
+}
+
+.spaceship-wing {
+  position: absolute;
+  top: 45%;
+  width: 35%;
+  height: 40%;
+  background: var(--color-red);
+  z-index: 2;
+  border: 2px solid #8a1620;
+}
+
+.spaceship-wing-left {
+  left: -18%;
+  border-radius: 40% 10% 10% 40%;
+  transform: skewY(15deg);
+}
+
+.spaceship-wing-right {
+  right: -18%;
+  border-radius: 10% 40% 40% 10%;
+  transform: skewY(-15deg);
+}
+
+.spaceship-flame {
+  position: absolute;
+  bottom: -18%;
+  left: 38%;
+  width: 24%;
+  height: 30%;
+  background: linear-gradient(
+    180deg,
+    var(--color-yellow),
+    var(--color-orange),
+    transparent
+  );
+  border-radius: 50% 50% 50% 50% / 60% 60% 100% 100%;
+  animation: flame-flicker 0.3s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+@keyframes flame-flicker {
+  from {
+    opacity: 0.7;
+    height: 26%;
+  }
+  to {
+    opacity: 1;
+    height: 36%;
+  }
+}
+
+.meteor {
+  position: absolute;
+  right: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff9f43, #8b4513 70%);
+  box-shadow: 0 0 10px rgba(255, 159, 67, 0.6);
+  animation-name: meteor-fly;
+  animation-timing-function: linear;
+  z-index: 2;
+}
+
+.meteor-tail {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 159, 67, 0.6));
+  transform: translateY(-50%);
+}
+
+@keyframes meteor-fly {
+  from {
+    right: -30px;
+  }
+  to {
+    right: 130px;
+  }
+}
+/* ---------- CONFETTI ---------- */
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  opacity: 0.9;
+  animation: confetti-fall linear forwards;
+  z-index: 5;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 640px) {
+  .game-title {
+    font-size: 2.2rem;
+  }
+  .intro-box,
+  .phase-intro-box,
+  .result-box {
+    padding: 28px;
+  }
+  .question-card {
+    padding: 24px;
+  }
+  body {
+    font-size: 16px;
+  }
+  .walking-crewmate {
+    transform: scale(0.7);
+  }
+}
